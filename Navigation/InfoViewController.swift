@@ -9,33 +9,46 @@ import Foundation
 import UIKit
 
 class InfoViewController: UIViewController {
-
+    
+    private lazy var showAlertButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Show Alert", for: .normal)
+        button.addTarget(self, action: #selector(showAlertButtonTapped(_:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    @objc private func showAlertButtonTapped(_ sender: UIButton) {
+        let alertController = UIAlertController(title: "Alert Title", message: "Alert Message", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+            print("OK button tapped")
+        }
+        alertController.addAction(okAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            print("Cancel button tapped")
+        }
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        title = "Info"
-
-        let closeButton = UIButton(type: .system)
-        closeButton.setTitle("Show Alert", for: .normal)
-        closeButton.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
-        closeButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(closeButton)
-
-        NSLayoutConstraint.activate([
-            closeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            closeButton.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
+        view.backgroundColor = .systemBackground
+        setupViews()
+        setupConstraints()
     }
-
-    @objc func showAlert() {
-        let alertController = UIAlertController(title: "Alert Title", message: "Alert Message", preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
-            print("OK button pressed")
-        }))
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
-            print("Cancel button pressed")
-        }))
-
-        present(alertController, animated: true, completion: nil)
+    
+    private func setupViews() {
+        view.addSubview(showAlertButton)
+    }
+    
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            showAlertButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            showAlertButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        ])
     }
 }

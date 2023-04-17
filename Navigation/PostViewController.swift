@@ -10,17 +10,29 @@ import UIKit
 
 class PostViewController: UIViewController {
 
-    var post: Post?
+    private let post: Post
+    
+    init(post: Post) {
+        self.post = post
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemGray6
-        title = post?.title
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Info", style: .plain, target: self, action: #selector(showInfo))
+        
+        title = post.title
+        view.backgroundColor = .white
+        
+        let infoButton = UIBarButtonItem(title: "Info", style: .plain, target: self, action: #selector(infoButtonTapped))
+        navigationItem.rightBarButtonItem = infoButton
     }
-
-    @objc func showInfo() {
-        let infoVC = InfoViewController()
-        present(infoVC, animated: true, completion: nil)
+    
+    @objc private func infoButtonTapped() {
+        let infoViewController = InfoViewController()
+        present(infoViewController, animated: true, completion: nil)
     }
 }
