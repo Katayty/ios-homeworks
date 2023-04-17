@@ -12,7 +12,6 @@ class FeedViewController: UIViewController {
     private lazy var openProfileButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Open Profile", for: .normal)
-        
         button.addTarget(self, action: #selector(FeedViewController.openProfileButtonTapped(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -20,6 +19,7 @@ class FeedViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .systemBackground
         setupViews()
         setupConstraints()
     }
@@ -36,7 +36,7 @@ class FeedViewController: UIViewController {
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             openProfileButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            openProfileButton.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            openProfileButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])
     }
 }
