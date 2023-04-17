@@ -9,13 +9,19 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
-    private lazy var openProfileButton: UIButton = {
+    private lazy var openPostButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Open Profile", for: .normal)
-        button.addTarget(self, action: #selector(FeedViewController.openProfileButtonTapped(_:)), for: .touchUpInside)
+        button.setTitle("Open Post", for: .normal)
+        button.addTarget(self, action: #selector(openPostButtonTapped(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+    @objc private func openPostButtonTapped(_ sender: UIButton) {
+        let post = Post(title: "Interesting Post")
+        let postViewController = PostViewController(post: post)
+        navigationController?.pushViewController(postViewController, animated: true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,19 +30,15 @@ class FeedViewController: UIViewController {
         setupConstraints()
     }
     
-    @objc private func openProfileButtonTapped(_ sender: UIButton) {
-        let profileViewController = ProfileViewController()
-        navigationController?.pushViewController(profileViewController, animated: true)
-    }
-    
     private func setupViews() {
-        view.addSubview(openProfileButton)
+        view.addSubview(openPostButton)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            openProfileButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            openProfileButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            openPostButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            openPostButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])
     }
+    
 }
